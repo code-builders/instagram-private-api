@@ -21,14 +21,14 @@ export class FbsearchRepository extends Repository {
     return body;
   }
 
-  async topsearchFlat(query: string): Promise<FbsearchRepositoryTopsearchFlatResponseRootObject> {
+  async topsearchFlat(query: string, count: number = 30, context: string = 'blended'): Promise<FbsearchRepositoryTopsearchFlatResponseRootObject> {
     const { body } = await this.client.request.send<FbsearchRepositoryTopsearchFlatResponseRootObject>({
       url: '/api/v1/fbsearch/topsearch_flat/',
       qs: {
         timezone_offset: this.client.state.timezoneOffset,
-        count: 30,
+        count,
         query,
-        context: 'blended',
+        context,
       },
     });
     return body;
